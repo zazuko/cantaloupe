@@ -18,5 +18,7 @@ RUN curl --silent --fail -OL https://github.com/medusa-project/cantaloupe/releas
   && chown -R cantaloupe /cantaloupe /var/log/cantaloupe /var/cache/cantaloupe \
   && cp -rs /cantaloupe/deps/Linux-x86-64/* /usr/
 
+COPY cantaloupe.properties /cantaloupe/cantaloupe.properties
+
 USER cantaloupe
-CMD ["sh", "-c", "java -Dcantaloupe.config=/cantaloupe/cantaloupe.properties.sample -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.war"]
+CMD ["sh", "-c", "java -Dcantaloupe.config=/cantaloupe/cantaloupe.properties -jar /cantaloupe/cantaloupe-$CANTALOUPE_VERSION.war"]
