@@ -1,0 +1,62 @@
+version: "3.7"
+services:
+  cantaloupe:
+    image: test
+    build: .
+    ports:
+      - 8182:8182
+    depends_on:
+      - minio
+    environment:
+      HTTPS_KEY_STORE_PATH: ""
+      BASE_URI: http://localhost:8182/
+      ENDPOINT_ADMIN_ENABLED: "true"
+      ENDPOINT_ADMIN_USERNAME: admin
+      ENDPOINT_ADMIN_SECRET: admin
+      FILESYSTEMSOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX: ./images/
+      HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX: http://localhost:8182/images/
+      PROCESSOR_SELECTION_STRATEGY: ManualSelectionStrategy
+      PROCESSOR_MANUALSELECTIONSTRATEGY_AVI: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_BMP: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_DCM: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_FLV: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_GIF: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_JP2: OpenJpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_JPG: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_MOV: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_MP4: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_MPG: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_PDF: PdfBoxProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_PNG: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_TIF: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_WEBM: FfmpegProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_WEBP: GraphicsMagickProcessor
+      PROCESSOR_MANUALSELECTIONSTRATEGY_FALLBACK: GraphicsMagickProcessor
+      PROCESSOR_STREAM_RETRIEVAL_STRATEGY: CacheStrategy
+      HTTP_HTTP2_ENABLED: "true"
+      HTTPS_HTTP2_ENABLED: "true"
+      ENDPOINT_IIIF_CONTENT_DISPOSITION: none
+      SOURCE_STATIC: S3Source
+      S3SOURCE_ENDPOINT: http://minio:9000
+      S3SOURCE_ACCESS_KEY_ID: minio
+      S3SOURCE_SECRET_KEY: password
+      S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME: images
+      CACHE_SERVER_DERIVATIVE_ENABLED: "true"
+      CACHE_SERVER_DERIVATIVE: S3Cache
+      CACHE_SERVIER_DERIVATIVE_TTL_SECONDS: "0"
+      CACHE_SERVER_PURGE_MISSING: "true"
+      CACHE_SERVER_WORKER_ENABLED: "true"
+      S3CACHE_ENDPOINT: http://minio:9000
+      S3CACHE_ACCESS_KEY_ID: minio
+      S3CACHE_SECRET_KEY: password
+      S3CACHE_BUCKET_NAME: cache
+      S3CACHE_OBJECT_KEY_PREFIX: cache
+
+  minio:
+    image: minio/minio
+    command: ["server", "/data"]
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_USERNAME:-minio}
+      MINIO_SECRET_KEY: ${MINIO_PASSWORD:-password}
