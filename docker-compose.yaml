@@ -1,8 +1,7 @@
 version: "3.7"
 services:
   cantaloupe:
-    image: test
-    build: .
+    image: zazuko/cantaloupe
     ports:
       - 8182:8182
     depends_on:
