@@ -31,7 +31,7 @@ services:
       PROCESSOR_MANUALSELECTIONSTRATEGY_TIF: GraphicsMagickProcessor
       PROCESSOR_MANUALSELECTIONSTRATEGY_WEBM: FfmpegProcessor
       PROCESSOR_MANUALSELECTIONSTRATEGY_WEBP: GraphicsMagickProcessor
-      PROCESSOR_MANUALSELECTIONSTRATEGY_FALLBACK: GraphicsMagickProcessor
+      PROCESSOR_FALLBACK: GraphicsMagickProcessor
       PROCESSOR_STREAM_RETRIEVAL_STRATEGY: CacheStrategy
       HTTP_HTTP2_ENABLED: "true"
       HTTPS_HTTP2_ENABLED: "true"
@@ -58,5 +58,5 @@ services:
     ports:
       - 9000:9000
     environment:
-      MINIO_ACCESS_KEY: ${MINIO_USERNAME:-minio}
-      MINIO_SECRET_KEY: ${MINIO_PASSWORD:-password}
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: password
