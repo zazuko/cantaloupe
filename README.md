@@ -40,6 +40,10 @@ Select `From info.json URI`, paste the info.json URL from the last step of the [
 
 You will now be able to see your image.
 
+### Admin interface
+
+Go to http://localhost:8182/admin and use `admin` / `admin` as credentials.
+
 ### Teardown
 
 ```
