@@ -34,6 +34,9 @@ services:
       S3CACHE_SECRET_KEY: password
       S3CACHE_BUCKET_NAME: cache
       S3CACHE_OBJECT_KEY_PREFIX: cache
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: otlp
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://collector:4317
 
   minio:
     image: minio/minio
@@ -43,3 +46,17 @@ services:
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: password
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.22
+
+    ports:
+      - "16686:16686"
+
+  collector:
+    image: otel/opentelemetry-collector:0.26.0
+    command: >-
+      --config=/collector.yaml
+
+    volumes:
+      - "./collector.yaml:/collector.yaml:ro"
