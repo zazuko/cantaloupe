@@ -21,7 +21,7 @@ Create the following buckets: `cache` and `images`.
 
 Upload some files in the `images` bucket, for example a big image called `big.jpg`.
 
-Go to http://localhost:8182/iiif/2/big.jpg/info.json to see some informations about this image.
+Go to http://localhost:8182/iiif/3/big.jpg/info.json to see some informations about this image.
 You can replace `big.jpg` with the name of your image.
 
 ### View image

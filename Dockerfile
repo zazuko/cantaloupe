@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk16:alpine
 
 ENV CANTALOUPE_VERSION=5.0.4
-ARG OTEL_VERSION=1.4.1
+ARG OTEL_VERSION=1.7.2
 
 EXPOSE 8182
 
@@ -25,7 +25,7 @@ RUN curl --silent --fail -OL https://github.com/cantaloupe-project/cantaloupe/re
 COPY cantaloupe.properties /cantaloupe/cantaloupe.properties
 COPY entrypoint.sh /entrypoint.sh
 
-ENV JAVA_ARGS="-Xms1024m -Xmx1024m"
+ENV JAVA_ARGS="-Xms8192m -Xmx8192m"
 ENV OTEL_SERVICE_NAME="cantaloupe"
 ENV OTEL_TRACES_EXPORTER="none"
 ENV OTEL_METRICS_EXPORTER="none"
