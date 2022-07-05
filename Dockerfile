@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk16:alpine
 
 ENV CANTALOUPE_VERSION=5.0.5
-ARG OTEL_VERSION=1.7.2
+ARG OTEL_VERSION=1.15.0
 
 EXPOSE 8182
 
@@ -11,7 +11,7 @@ RUN apk --no-cache add curl ffmpeg unzip openjpeg-tools ttf-dejavu
 RUN adduser --system cantaloupe
 
 # Get the OpenTelemetry instrumentation agent
-RUN curl --silent --fail --output /opentelemetry.jar -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_VERSION}/opentelemetry-javaagent-all.jar
+RUN curl --silent --fail --output /opentelemetry.jar -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${OTEL_VERSION}/opentelemetry-javaagent.jar
 
 # Get and unpack Cantaloupe release archive
 RUN curl --silent --fail -OL https://github.com/cantaloupe-project/cantaloupe/releases/download/v$CANTALOUPE_VERSION/cantaloupe-$CANTALOUPE_VERSION.zip \
